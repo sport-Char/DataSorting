@@ -12,8 +12,8 @@ if uploaded_file is not None:
     df = pd.read_excel(io=uploaded_file)
     df = df.fillna(0)
     df["KPI"]=0
-    age_max = st.sidebar.slider("Âge Max", 16, 40, 24)
-    minute_min = st.sidebar.slider("Minutes minimum",0,max(df["Minutes played"]),0)
+    age_max = st.sidebar.slider("Max Age", 16, 40, 24)
+    minute_min = st.sidebar.slider("Minimum Minutes",0,max(df["Minutes played"]),0)
     unique_list_pos = ["Keeper","Central Defender","Fullback","Midfielders","Wingers","Forwards"]
     dictionnaire_position ={
         "Keeper":["General keeper","Line keeper","Ball playing keeper"], 
@@ -25,7 +25,7 @@ if uploaded_file is not None:
     position = st.sidebar.selectbox("Position",unique_list_pos)
     list_profil = dictionnaire_position[position]
     i= 0
-    choice_var = st.sidebar.selectbox("Profil du joueur",list_profil)
+    choice_var = st.sidebar.selectbox("Player's Profile",list_profil)
     dictionnaire_variables = {
         "General keeper": ["Conceded goals","Conceded goals per 90","Shots against","Shots against per 90","Clean sheets","Save rate, %","xG against","xG against per 90","Prevented goals","Prevented goals per 90","Back passes received as GK per 90","Exits per 90","Aerial duels per 90","Interceptions per 90","Offensive duels per 90","Progressive passes per 90","Average pass length, m"],
         "Line keeper" :["Prevented goals per 90","Save rate, %","Exits per 90"],
@@ -56,7 +56,7 @@ if uploaded_file is not None:
         #pos_mask = df["Position"].apply(lambda x: any(pos in x for pos in positions))
         final_mask = age_mask & min_mask
         df = df[final_mask]
-        st.sidebar.title("Influence de chaque paramètre")
+        st.sidebar.title("Influence of each parameter")
         for variable in choice_variable_off:
             var = st.sidebar.slider(variable, 0, 100, 100)
             df[variable] = stats.zscore(df[variable])
