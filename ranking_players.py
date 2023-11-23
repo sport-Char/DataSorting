@@ -62,7 +62,7 @@ if uploaded_file is not None:
             df[variable] = stats.zscore(df[variable])
             #st.write(df[[variable,'Joueur']])
             df["KPI"] += df[variable]*(var/100)
-            st.write(df[variable]*(var/100))
+            #st.write(df[variable]*(var/100))
             
 
         df = df.sort_values(by='KPI', ascending=False)
